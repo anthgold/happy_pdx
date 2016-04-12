@@ -61,7 +61,7 @@ body {
 /*.fixed {
   position: fixed;
   top:0; left:0;
-  width: 100%; 
+  width: 100%;
 }*/
 
 
@@ -128,7 +128,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100; 
+  z-index: 100;
   background-color: #fff;
   margin: auto;
   display: block;
@@ -227,17 +227,17 @@ button:hover {
 }
 
 
-input:focus::-webkit-input-placeholder { 
-  color:transparent; 
+input:focus::-webkit-input-placeholder {
+  color:transparent;
 }
-input:focus:-moz-placeholder { 
-  color:transparent; 
+input:focus:-moz-placeholder {
+  color:transparent;
 } /* Firefox 18- */
-input:focus::-moz-placeholder { 
-  color:transparent; 
+input:focus::-moz-placeholder {
+  color:transparent;
 } /* Firefox 19+ */
-input:focus:-ms-input-placeholder { 
-  color:transparent; 
+input:focus:-ms-input-placeholder {
+  color:transparent;
 } /* oldIE ;) */
 
 
@@ -273,7 +273,7 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border-color: rgba(126, 239, 104, 0.8)!important;
   box-shadow: #8FD975 inset, #BDE0B1!important;
   outline: 0 none!important;
@@ -281,20 +281,41 @@ input[type="color"]:focus,
 
 
 
-/* ----------- Non-Retina Screens ----------- */
-@media screen 
-  and (min-device-width: 1200px) 
-  and (max-device-width: 1600px) 
-  and (-webkit-min-device-pixel-ratio: 1) { 
+/*===========
+Media Queries
+=============*/
+
+/*Phone-Specific*/
+@media screen and (max-device-width: 479px) {
+  .comments { /* example, needs tailoring */
+    display: none;
+  } /* this would hide the comments section on phones */
 }
 
+/* note: adding only as in "@media only" protects against IE8 issues */
 
-/* ----------- iPhone 5 and 5S ----------- */
+/*Phones to Tablets*/
+@media only screen and (min-width: 481px) {
+  .col { /* example, needs tailoring */
+    float: left;
+  }
+  .mail { /* example, needs tailoring */
+    width: 65.9574%;
+  } /* this looks crazy anal, but one should get hyper-specific about the percentage */
+  .secondary { /* example, needs tailoring */
+    width: 31.9149%;
+    margin-left: 2.1277%;
+  }
+}
 
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 568px)
-  and (-webkit-min-device-pixel-ratio: 2) {
+/*Tablets to Desktop*/
+@media only screen and (min-width: 769px) { /* example, needs tailoring */
 
+  }
+
+/* This caps the size of the content at a max width */
+@media only screen and (min-width: 1000px){
+  .wrap {
+    width: 700px;
+  }
 }

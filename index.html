@@ -7,6 +7,22 @@
 	<title>Happy PdX</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="js/codebird.js"></script>
+	<script>
+			var cb = new Codebird;
+			cb.setBearerToken("719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5s");
+			var params = {
+		    	q: "happy hour"
+		    };
+			cb.__call(
+		    "search_tweets",
+		    params, 
+		    function (reply) {
+		        console.log(reply);
+		    },
+		    true // this parameter required
+		);
+	</script>
 </head>
 <body>
 	
@@ -35,6 +51,7 @@
     async defer></script>
 	<script src="js/googleMaps.js"></script>
 	<script src="js/main.js"></script>
+
 
 	
 </body>

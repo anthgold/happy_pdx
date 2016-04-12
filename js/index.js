@@ -1,4 +1,8 @@
-var Twitter = require('twitter-node-client').Twitter;
+    var Twitter = require('twitter-node-client').Twitter;
+    var Twitter = require('twitter-js-client').Twitter;
+    // var Codebird = require("../node_modules/codebird-js-develop/codebird.js");
+    //importing Twitter JS Client dependancy
+    module.exports = require('../node_modules/twitter-js-client/lib/Twitter.js');
 
  //Callback functions
     var error = function (err, response, body) {
@@ -8,11 +12,11 @@ var Twitter = require('twitter-node-client').Twitter;
         console.log('Data [%s]', data);
     };
 
-    var Twitter = require('twitter-js-client').Twitter;
+    
   
-    //importing Twitter JS Client dependancy
+    
 
-    module.exports = require('../node_modules/twitter-js-client/lib/Twitter.js');
+    
 
 
     // VARIBALES
@@ -21,40 +25,55 @@ var Twitter = require('twitter-node-client').Twitter;
     var https = require('https');
     var app = express();
     var bodyParser = require('body-parser');
-    var error = function (err, response, body) {
-        console.log('ERROR [%s]', JSON.stringify(err));
-    };
 
 
-    var success = function (data) {
-        console.log('Data [%s]', data);
-    };
+//************* CODEBIRD ATTEMPT **********************//
 
+    // var cb = new Codebird;
+    // cb.setBearerToken("719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5"); // see above
 
+    // cb.__call(
+    //     "search_tweets",
+    //     "q=Twitter",
+    //     function (reply) {
+    //         console.log(reply);
+    //         console.log(err);
+    //     },
+    //     true
+    // );
+       
+
+    
+
+    
+    
+    
+
+    TWITTER AUTHENICATION
     var config = {
         "consumerKey": "1rwxopHjn7gi7MP72xoAXtiIl",
         "consumerSecret": "GKplXtuyYXl1jl6sYwxOD8SeXz2n5mW2nRnovVwqae4DlXV2mW",
         "accessToken": "707759691963564032-iHE4VD7XSING2mggRcfiJ8aRpKhfBaa",
         "accessTokenSecret": "XI6qykHaliyZCGI4kk1I23FuU5ILqKhljKHuEonblPNu6", 
     };
-
-
     var twitter = new module.exports.Twitter(config);
-    var port = process.env.PORT || 3000;
-    var server = app.listen(port, function () {
-        console.log('Server running on port ' + port);
-    });
-
-    //TWITTER AUTHENICATION
-    
     var token = null;
-    var oauth2 = new OAuth2(config.consumerKey, config.consumerSecret, 'https://api.twitter.com/', null, 'oauth2/token', null);
+    var oauth2 = new OAuth2(config.consumerKey, config.consumerSecret, 'https://twitter.com/search-home', null, 'oauth2/token', null);
+    
     oauth2.getOAuthAccessToken('', {
         'grant_type': 'client_credentials'
       }, function (e, access_token) {
             token = access_token;
+            console.log("hey im deep in here");
     });
 
+    // SETTING PORT //
+
+    var port = process.env.PORT || 3000;
+    var server = app.listen(port, function () {
+        console.log('Server running on port ' + port);
+    });
+//********************************//********************************//
 
     //APP CONFIG
     app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -67,53 +86,30 @@ var Twitter = require('twitter-node-client').Twitter;
     app.use(express.static('public'));
 
 
-    //ENDPOINTS
+    // //ENDPOINTS
 
-    //unauthenticated request
-    app.post('/twitter/user', function (req, res) {
-        var username = req.body.username;
-        var data = twitter.getUser({ screen_name: username}, function(error, response, body){
-            res.send({
-                "error" : error
-            });
-        }, function(data){
-            res.send({
-                result : {
-                    "userData" : data
-                }
-            });
-        });
+  
+    app.post('twitter/users', function (req, res) {
+           var options = {
+            hostname: 'https://twitter.com/search-home',
+                    //this path will search for tweets from specified user 
+                    //with "github" mentioned in them
+            path: 'https://api.twitter.com/1.1/search/tweets.json',
+            headers: {
+                Authorization: 'Bearer ' + token
+        }
 
-    });
-
-    //authenticated request
-    app.post('/twitter/user/github', function (req, res) {
-            var username = req.body.username;
-            var options = {
-                hostname: 'api.twitter.com',
-                        //this path will search for tweets from specified user 
-                        //with "github" mentioned in them
-                path: '/1.1/search/tweets.json?q=github%3A' + username,
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            };
-
-            https.get(options, function(result){
-              var buffer = '';
-              result.setEncoding('utf8');
-              result.on('data', function(data){
-                buffer += data;
-              });
-              result.on('end', function(){
-                var tweets = JSON.parse(buffer);
-                res.send(tweets);
-              });
-            });
-
-    });
-
-    app.listen();
+    app.get(options, function(result){
+        var searchItem = portland;
+        var data = twitter.getSearch({'q':searchItem,'count': 10}, error, success);
+        var tweets = JSON.parse(data);
+        success();
+      });
+       
+    twitter.getMentionsTimeline({ count: '10'}, error, success);
+    
+    twitter.getUserTimeline({ screen_name: 'BoyCook', count: '10'}, error, success);
+    
 
 
     //********************************************************//

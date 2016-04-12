@@ -1,6 +1,49 @@
+//globalVariables
+var closeBars = [];
 
-		//*****************************************************************
-			
+//Twitter API
+var Twitter = require('twitter-node-client').Twitter;
+
+//Callback functions
+    var error = function (err, response, body) {
+        console.log('ERROR [%s]', err);
+    };
+    var success = function (data) {
+        console.log('Data [%s]', data);
+    };
+
+    var Twitter = require('twitter-js-client').Twitter;
+
+    //Get this data from your twitter apps dashboard
+    var config = {
+        "consumerKey": "3Lxl1P5hiUSkdiBaGrCf5dSYw",
+        "consumerSecret": "jrB2p1QCxhRC1ZBBcdqKGjirFoW9GLbFE8D0n2E1Kvqot2JAJb",
+        "accessToken": "719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5",
+        "accessTokenSecret": "Z5SgRIVBbgw44YFPMmhbweThFRHN6cH0SPG8r8avOEexx",
+        "callBackUrl": "NONE"
+    }
+
+    var twitter = new Twitter(config);
+
+    //
+    // Get 3 tweets containing the hashtag happyhour and several iterations of the closeBars variable
+    //
+		function twitFind(){
+			for (j = 0; j = 5; j++){
+				var bar = closeBars.slice(j, j+1);
+				twitter.getSearch({'q':'#happyhour', bar,'count': 3}, error, success);
+			}
+		}
+
+
+    //
+    // Get 10 popular tweets with a positive attitude about a movie that is not scary
+    //
+
+    // twitter.getSearch({'q':' movie -scary :) since:2013-12-27', 'count': 10, 'result\_type':'popular'}, error, success);
+
+// Yelp API
+
 
 function genYelp() {
 	var auth = {
@@ -46,10 +89,10 @@ function genYelp() {
 	var parameterMap = OAuth.getParameterMap(message.parameters);
 	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
 	console.log("paramater map", parameterMap);
-	
+
 	var bestRestaurant = "Some random restaurant";
 	var output;
-	
+
 
 
 
@@ -70,6 +113,7 @@ function genYelp() {
 	for(var i=0; i<=9; i= i+1){
 	    $("body").append("<p>");
 	    $("body").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
+			closeBars.push(data.businesses[i].name);
 	    $("body").append("      ");
 	    $("body").append('<img src="' + data.businesses[i].rating_img_url +'" />');
 	    $("body").append(" Phone: ");
@@ -84,6 +128,8 @@ function genYelp() {
 	    $("body").append(data.businesses[i]);
 	    $("body").append("      ");
 	    $("body").append("<\p>");
+			console.log(closeBars);
+			//twitFind();
 	   }
 
 	  }

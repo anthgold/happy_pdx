@@ -2,45 +2,12 @@
 var closeBars = [];
 
 //Twitter API
-var Twitter = require('twitter-node-client').Twitter;
 
-//Callback functions
-    var error = function (err, response, body) {
-        console.log('ERROR [%s]', err);
-    };
-    var success = function (data) {
-        console.log('Data [%s]', data);
-    };
-
-    var Twitter = require('twitter-js-client').Twitter;
-
-    //Get this data from your twitter apps dashboard
-    var config = {
-        "consumerKey": "3Lxl1P5hiUSkdiBaGrCf5dSYw",
-        "consumerSecret": "jrB2p1QCxhRC1ZBBcdqKGjirFoW9GLbFE8D0n2E1Kvqot2JAJb",
-        "accessToken": "719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5",
-        "accessTokenSecret": "Z5SgRIVBbgw44YFPMmhbweThFRHN6cH0SPG8r8avOEexx",
-        "callBackUrl": "NONE"
-    }
-
-    var twitter = new Twitter(config);
-
-    //
-    // Get 3 tweets containing the hashtag happyhour and several iterations of the closeBars variable
-    //
-		function twitFind(){
-			for (j = 0; j = 5; j++){
-				var bar = closeBars.slice(j, j+1);
-				twitter.getSearch({'q':'#happyhour', bar,'count': 3}, error, success);
-			}
-		}
-
-
-    //
-    // Get 10 popular tweets with a positive attitude about a movie that is not scary
-    //
-
-    // twitter.getSearch({'q':' movie -scary :) since:2013-12-27', 'count': 10, 'result\_type':'popular'}, error, success);
+//         "consumerKey": "3Lxl1P5hiUSkdiBaGrCf5dSYw",
+//         "consumerSecret": "jrB2p1QCxhRC1ZBBcdqKGjirFoW9GLbFE8D0n2E1Kvqot2JAJb",
+//         "accessToken": "719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5",
+//         "accessTokenSecret": "Z5SgRIVBbgw44YFPMmhbweThFRHN6cH0SPG8r8avOEexx",
+//         "callBackUrl": "NONE"
 
 // Yelp API
 
@@ -106,10 +73,10 @@ function genYelp() {
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
 
-	$("body").append("<h1>The best bars in "+ near +" are listed below: </h1>");
-	$("body").append("<h1>");
-	$("body").append(near);
-	$("body").append("<\h1>");
+	$("#yelp-output").append("<h1>The best bars in "+ near +" are listed below: </h1>");
+	$("#yelp-output").append("<h1>");
+	$("#yelp-output").append(near);
+	$("#yelp-output").append("<\h1>");
 	for(var i=0; i<=9; i= i+1){
 	    $("body").append("<p>");
 	    $("body").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
@@ -130,6 +97,23 @@ function genYelp() {
 	    $("body").append("<\p>");
 			console.log(closeBars);
 			//twitFind();
+	    $("#yelp-output").append("<p>");
+	    $("#yelp-output").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
+	    $("#yelp-output").append("      ");
+	    $("#yelp-output").append('<img src="' + data.businesses[i].rating_img_url +'" />');
+	    $("#yelp-output").append(" Phone: ");
+	    $("#yelp-output").append(data.businesses[i].phone);
+	    $("#yelp-output").append("<p>");
+	    $("#yelp-output").append(" Yelp Reviews: ");
+	    $("#yelp-output").append(data.businesses[i].review_count);
+	    $("#yelp-output").append("      ");
+	    $("#yelp-output").append("<\p>");
+	    $("#yelp-output").append("<p>");
+	    $("#yelp-output").append(" The Deal Yo: ");
+	    $("#yelp-output").append(data.businesses[i]);
+	    $("#yelp-output").append("      ");
+	    $("#yelp-output").append("<\p>");
+
 	   }
 
 	  }
@@ -137,10 +121,13 @@ function genYelp() {
 
 	return output;
 	}
+
+//************************************************end of yelp API call*****************
 $(document).ready(function(){
 
+
 	var newSearch = new genYelp();
-	$('#yelp-output').append(genYelp.output);
+	$('.yelp').append(genYelp.output);
 
 
 

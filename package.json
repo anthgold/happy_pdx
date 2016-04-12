@@ -1,0 +1,16 @@
+{
+  "name": "packageName",
+  "description": "Your Description",
+  "version": "0.0.1",
+  "private": false,
+  "main": "index.js",
+  "dependencies": {
+    "oauth": "^0.9.12",
+    "qs": "^2.4.1",
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

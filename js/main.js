@@ -122,7 +122,7 @@ function genYelp() {
 	return output;
 	}
 
-//************************************************end of yelp API call*****************
+//end of yelp API call
 $(document).ready(function(){
 
 

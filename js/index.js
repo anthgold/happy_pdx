@@ -9,7 +9,7 @@ var Twitter = require('twitter-node-client').Twitter;
     };
 
     var Twitter = require('twitter-js-client').Twitter;
-  
+
     //importing Twitter JS Client dependancy
 
     module.exports = require('../node_modules/twitter-js-client/lib/Twitter.js');
@@ -17,7 +17,7 @@ var Twitter = require('twitter-node-client').Twitter;
 
     // VARIBALES
     var express = require('express');
-    var OAuth2 = require('oauth').OAuth2; 
+    var OAuth2 = require('oauth').OAuth2;
     var https = require('https');
     var app = express();
     var bodyParser = require('body-parser');
@@ -35,7 +35,7 @@ var Twitter = require('twitter-node-client').Twitter;
         "consumerKey": "1rwxopHjn7gi7MP72xoAXtiIl",
         "consumerSecret": "GKplXtuyYXl1jl6sYwxOD8SeXz2n5mW2nRnovVwqae4DlXV2mW",
         "accessToken": "707759691963564032-iHE4VD7XSING2mggRcfiJ8aRpKhfBaa",
-        "accessTokenSecret": "XI6qykHaliyZCGI4kk1I23FuU5ILqKhljKHuEonblPNu6", 
+        "accessTokenSecret": "XI6qykHaliyZCGI4kk1I23FuU5ILqKhljKHuEonblPNu6",
     };
 
 
@@ -46,7 +46,7 @@ var Twitter = require('twitter-node-client').Twitter;
     });
 
     //TWITTER AUTHENICATION
-    
+
     var token = null;
     var oauth2 = new OAuth2(config.consumerKey, config.consumerSecret, 'https://api.twitter.com/', null, 'oauth2/token', null);
     oauth2.getOAuthAccessToken('', {
@@ -91,7 +91,7 @@ var Twitter = require('twitter-node-client').Twitter;
             var username = req.body.username;
             var options = {
                 hostname: 'api.twitter.com',
-                        //this path will search for tweets from specified user 
+                        //this path will search for tweets from specified user
                         //with "github" mentioned in them
                 path: '/1.1/search/tweets.json?q=github%3A' + username,
                 headers: {

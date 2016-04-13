@@ -6,11 +6,16 @@
 						// YELP API CALL
 
 //*****************************************************************
-
+var closeBars = {
+	barName: [],
+	barReviewCount: [],
+	barUrl: [],
+	barPhone: []
+}
 
 function genYelp(city) {
-	
-	var closeBars = [];
+
+
 	var auth = {
 	  consumerKey: "9vZfVDP_dINI6KFtLfFYfA",
 	  consumerSecret: "g2QgG109oBvlf1bUx4ySSpWmlew",
@@ -19,13 +24,14 @@ function genYelp(city) {
 	  serviceProvider: {
 	    signatureMethod: "HMAC-SHA1"
 	  }
+		// <script src="js/yelp.js"></script>
 	};
 
 	var terms = 'happy hour';
 	var radius_filter = 8000;
 	var deals_filter = true;
 
-	
+
 
 	var accessor = {
 	  consumerSecret: auth.consumerSecret,
@@ -54,11 +60,11 @@ function genYelp(city) {
 	var parameterMap = OAuth.getParameterMap(message.parameters);
 	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
 	console.log("paramater map", parameterMap);
-	
+
 	var bestRestaurant = "Some random restaurant";
 	var output;
-	
-	
+
+
 
 
 
@@ -72,57 +78,57 @@ function genYelp(city) {
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
 
-		$("#yelp-output").append("<h1>The best bars in "+ city +" are listed below: </h1>");
-		$("#yelp-output").append("<h1>");
-		$("#yelp-output").append("<\h1>");
+		// $("#yelp-output").append("<h1>The best bars in "+ city +" are listed below: </h1>");
+		// $("#yelp-output").append("<h1>");
+		// $("#yelp-output").append("<\h1>");
 		for(var i=0; i<=9; i= i+1){
-		
-	   
-	
-	    $("#yelp-output").append("<p>");
-	    closeBars.push(data.businesses[i].name);
-	    $("#yelp-output").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
-	    
-	    $("#yelp-output").append("      ");
-	    $("#yelp-output").append('<img src="' + data.businesses[i].rating_img_url +'" />');
-	    $("#yelp-output").append(" Phone: ");
-	    $("#yelp-output").append(data.businesses[i].phone);
-	    $("#yelp-output").append("<p>");
-	    $("#yelp-output").append(" Yelp Reviews: ");
-	    $("#yelp-output").append(data.businesses[i].review_count);
-	    $("#yelp-output").append("      ");
-	    $("#yelp-output").append("<\p>");
-	    $("#yelp-output").append("<p>");
-	    $("#yelp-output").append(" The Deal Yo: ");
-	    $("#yelp-output").append(data.businesses[i]);
-	    $("#yelp-output").append("      ");
-	    $("#yelp-output").append("<\p>");
-	    
+	    // $("#yelp-output").append("<p>");
+	    // $("#yelp-output").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
+			(closeBars.barName).push(data.businesses[i].name);
+			(closeBars.barUrl).push(data.businesses[i].url);
+			// $("#yelp-output").append("      ");
+	    // $("#yelp-output").append('<img src="' + data.businesses[i].rating_img_url +'" />');
+	    // $("#yelp-output").append(" Phone: ");
+	    // $("#yelp-output").append(data.businesses[i].phone);
+			(closeBars.barPhone).push(data.businesses[i].phone);
+			// $("#yelp-output").append("<p>");
+	    // $("#yelp-output").append(" Yelp Reviews: ");
+	    // $("#yelp-output").append(data.businesses[i].review_count);
+			(closeBars.barReviewCount).push(data.businesses[i].review_count);
+			// $("#yelp-output").append("      ");
+	    // $("#yelp-output").append("<\p>");
+	    // $("#yelp-output").append("<p>");
+	    // $("#yelp-output").append(" The Deal Yo: ");
+	    // $("#yelp-output").append(data.businesses[i]);
+	    // $("#yelp-output").append("      ");
+			// $("#yelp-output").append("<\p>");
+			console.log(closeBars);
+
 
 	   }
-	   
+
 	  }
 
 	}); // end of AJAX request
 
-	
-	
-	
+
+
+
 	}
 
-//************************************************end of yelp API call*****************	
+//************************************************end of yelp API call*****************
 $(document).ready(function(){
-	
-	
+
+
 
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
-		console.log(closeBars);
-		
+		// console.log(closeBars);
+
 	});
-	
-	
+
+
 
 
 

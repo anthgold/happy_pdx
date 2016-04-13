@@ -5,7 +5,7 @@
  */
 var Twitter = require('twitter-node-client').Twitter;
 
-// var Twitter = require('twitter-js-client').Twitter;
+
 //importing Twitter JS Client dependancy
 // module.exports = require('../node_modules/twitter-js-client/lib/Twitter.js');
 
@@ -27,6 +27,14 @@ var router = express.Router();
 var path = require('path');
 var bodyParser = require('body-parser');
 
+// TWITTER AUTHENICATION
+var config = {
+  "consumerKey": "1rwxopHjn7gi7MP72xoAXtiIl",
+  "consumerSecret": "GKplXtuyYXl1jl6sYwxOD8SeXz2n5mW2nRnovVwqae4DlXV2mW",
+  "accessToken": "707759691963564032-iHE4VD7XSING2mggRcfiJ8aRpKhfBaa",
+  "accessTokenSecret": "XI6qykHaliyZCGI4kk1I23FuU5ILqKhljKHuEonblPNu6",
+};
+var twitter = new Twitter(config);
 
 // SETTING PORT //
 
@@ -35,7 +43,8 @@ var server = app.listen(port, function() {
   console.log('Server running on port ' + port);
 });
 //********************************//********************************//
-
+app.use(express.static('public'));
+app.use(express.static('js'));
 //creating a router for sending static index.html
 router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public', 'index.html'));
@@ -44,7 +53,7 @@ router.get('/', function(req, res) {
 router.get('/tweets', function(req, res) {
 
   twitter.getSearch({
-    'q': '#haiku',
+    'q': 'happy hour portland',
     'count': 10
   }, function(x, err) {
 
@@ -56,7 +65,7 @@ router.get('/tweets', function(req, res) {
     console.log('error!', err);
   }, function(x, err) {
     console.log('twitter.getSearch ran successfully!');
-    res.write(x)
+    res.send(x)
 
   // uncomment this to console.log the data
   //  console.log('data', x);
@@ -72,18 +81,9 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 
 //public is the folder your angular application is in.
 //This allows your angular app to handle routing when you hit the URL root (/)
-app.use(express.static('public'));
 
 
-
-
-// TWITTER AUTHENICATION
-var config = {
-  "consumerKey": "1rwxopHjn7gi7MP72xoAXtiIl",
-  "consumerSecret": "GKplXtuyYXl1jl6sYwxOD8SeXz2n5mW2nRnovVwqae4DlXV2mW",
-  "accessToken": "707759691963564032-iHE4VD7XSING2mggRcfiJ8aRpKhfBaa",
-  "accessTokenSecret": "XI6qykHaliyZCGI4kk1I23FuU5ILqKhljKHuEonblPNu6",
-};
+//************* CODEBIRD ATTEMPT **********************//
 
 // potential issues with parameter passing below //
 
@@ -169,21 +169,3 @@ oauth2.getOAuthAccessToken(
 
 
 //call new on our module from line 6
-var twitter = new Twitter(config);
-
-twitter.getSearch({
-  'q': '#haiku',
-  'count': 10
-}, function(x, err) {
-
-  // this is our error callback function for our search:
-  // I really have no idea what these give back so I used x, err as placeholder params
-  // TODO: change this to resemble what we get back.
-
-  console.log('data', x);
-  console.log('error!', err);
-}, function(x, err) {
-  console.log('twitter.getSearch ran successfully!');
-  console.log('data', x);
-  console.log('error!', err);
-});

@@ -148,10 +148,9 @@
     //   });
 
     var twitter = new module.exports.Twitter(config);
-       
-    twitter.getMentionsTimeline({ count: '10'}, error, success);
     
-    twitter.getUserTimeline({ screen_name: 'BoyCook', count: '10'}, error, success);
+       
+    console.log(twitter.getSearch({'q':'#haiku','count': 10}, error, success));
     
 
 

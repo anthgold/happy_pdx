@@ -80,6 +80,7 @@ function genYelp(city) {
 	   
 	
 	    $("#yelp-output").append("<p>");
+	    closeBars.push(data.businesses[i].name);
 	    $("#yelp-output").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
 	    
 	    $("#yelp-output").append("      ");
@@ -96,7 +97,7 @@ function genYelp(city) {
 	    $("#yelp-output").append(data.businesses[i]);
 	    $("#yelp-output").append("      ");
 	    $("#yelp-output").append("<\p>");
-	    closeBars.push(data.businesses[i].name);
+	    
 
 	   }
 	   
@@ -117,6 +118,7 @@ $(document).ready(function(){
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
+		console.log(closeBars);
 		
 	});
 	

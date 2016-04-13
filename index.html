@@ -7,22 +7,8 @@
 	<title>Happy PdX</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-	<script type="text/javascript" src="js/codebird.js"></script>
-	<script>
-			var cb = new Codebird;
-			cb.setBearerToken("719719328833282048-dzgFSdIEoKIbQcbTneyvXBEtsAB8wN5s");
-			var params = {
-		    	q: "happy hour"
-		    };
-			cb.__call(
-		    "search_tweets",
-		    params, 
-		    function (reply) {
-		        console.log(reply);
-		    },
-		    true // this parameter required
-		);
-	</script>
+	
+
 </head>
 <body>
 	
@@ -31,7 +17,7 @@
 		<h1>This is the Yelp div </h1>
 		<label>Enter a city bellow to see most popular bars.</label>
 		<input id="yelp-city"></input>
-		<button onclick="genYelp()">Generate Yelp Results</button>
+		<button id="click">Generate Yelp Results</button>
 		<div id="yelp-output"></div>
 	</section>
 	<div id="map">

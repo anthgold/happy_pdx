@@ -6,9 +6,11 @@
 						// YELP API CALL
 
 //*****************************************************************
-			
 
-function genYelp() {
+
+function genYelp(city) {
+	
+	var closeBars = [];
 	var auth = {
 	  consumerKey: "9vZfVDP_dINI6KFtLfFYfA",
 	  consumerSecret: "g2QgG109oBvlf1bUx4ySSpWmlew",
@@ -23,7 +25,7 @@ function genYelp() {
 	var radius_filter = 8000;
 	var deals_filter = true;
 
-	var near = $("#yelp-city").val();
+	
 
 	var accessor = {
 	  consumerSecret: auth.consumerSecret,
@@ -33,7 +35,7 @@ function genYelp() {
 	parameters = [];
 	parameters.push(['term', terms]);
 	parameters.push(['radius_filter', radius_filter]);
-	parameters.push(['location', near]);
+	parameters.push(['location', city]);
 	parameters.push(['callback', 'cb']);
 	parameters.push(['oauth_consumer_key', auth.consumerKey]);
 	parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -56,6 +58,7 @@ function genYelp() {
 	var bestRestaurant = "Some random restaurant";
 	var output;
 	
+	
 
 
 
@@ -69,13 +72,16 @@ function genYelp() {
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
 
-	$("#yelp-output").append("<h1>The best bars in "+ near +" are listed below: </h1>");
-	$("#yelp-output").append("<h1>");
-	$("#yelp-output").append(near);
-	$("#yelp-output").append("<\h1>");
-	for(var i=0; i<=9; i= i+1){
+		$("#yelp-output").append("<h1>The best bars in "+ city +" are listed below: </h1>");
+		$("#yelp-output").append("<h1>");
+		$("#yelp-output").append("<\h1>");
+		for(var i=0; i<=9; i= i+1){
+		
+	   
+	
 	    $("#yelp-output").append("<p>");
 	    $("#yelp-output").append('<a href ="' + data.businesses[i].url + '">' + data.businesses[i].name +'</a>');
+	    
 	    $("#yelp-output").append("      ");
 	    $("#yelp-output").append('<img src="' + data.businesses[i].rating_img_url +'" />');
 	    $("#yelp-output").append(" Phone: ");
@@ -90,20 +96,31 @@ function genYelp() {
 	    $("#yelp-output").append(data.businesses[i]);
 	    $("#yelp-output").append("      ");
 	    $("#yelp-output").append("<\p>");
+	    closeBars.push(data.businesses[i].name);
+
 	   }
-
+	   
 	  }
-	});
 
-	return output;
+	}); // end of AJAX request
+
+	
+	
+	
 	}
 
 //************************************************end of yelp API call*****************	
 $(document).ready(function(){
 	
 	
-	var newSearch = new genYelp();
-	$('.yelp').append(genYelp.output);
+
+	$('#click').click(function(){
+		var near = $("#yelp-city").val();
+		genYelp(near);
+		
+	});
+	
+	
 
 
 

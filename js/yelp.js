@@ -1,4 +1,12 @@
-
+// var fullBarObject = {
+//   names: [],
+//   reviews: [],
+//   urls: [],
+//   phones: []
+// }
+// var bom = 0;
+// var BarObject = bom + "BAR";
+// var fullBarObject = BarObject.toString();
 
 
 //***************************************************************
@@ -6,6 +14,7 @@
 						// YELP API CALL
 
 //*****************************************************************
+
 var closeBars = {
 	barName: [],
 	barReviewCount: [],
@@ -103,18 +112,39 @@ function genYelp(city) {
 	    // $("#yelp-output").append("      ");
 			// $("#yelp-output").append("<\p>");
 			console.log(closeBars);
+	   }
+	   for (bom=0; bom < 1; bom++){
+	     namesBar0.push(closeBars.barName[0]);
+	     reviewsBar0.push(closeBars.barReviewCount[0]);
+	     urlsBar0.push(closeBars.barUrl[0]);
+	     phonesBar0.push(closeBars.barPhone[0]);
 
+			 namesBar1.push(closeBars.barName[1]);
+	     reviewsBar1.push(closeBars.barReviewCount[1]);
+	     urlsBar1.push(closeBars.barUrl[1]);
+	     phonesBar1.push(closeBars.barPhone[1]);
+
+			 namesBar2.push(closeBars.barName[2]);
+	     reviewsBar2.push(closeBars.barReviewCount[2]);
+	     urlsBar2.push(closeBars.barUrl[2]);
+	     phonesBar2.push(closeBars.barPhone[2]);
+
+			 namesBar3.push(closeBars.barName[3]);
+	     reviewsBar3.push(closeBars.barReviewCount[3]);
+	     urlsBar3.push(closeBars.barUrl[3]);
+	     phonesBar3.push(closeBars.barPhone[3]);
+
+			 namesBar4.push(closeBars.barName[4]);
+	     reviewsBar4.push(closeBars.barReviewCount[4]);
+	     urlsBar4.push(closeBars.barUrl[4]);
+	     phonesBar4.push(closeBars.barPhone[4]);
 
 	   }
+		 }
+	 });
+ }
+ // end of AJAX request
 
-	  }
-
-	}); // end of AJAX request
-
-
-
-
-	}
 
 //************************************************end of yelp API call*****************
 $(document).ready(function(){

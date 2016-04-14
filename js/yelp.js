@@ -1,10 +1,26 @@
+
+var bars = [];
+
+function Bar(naming, review, url, phone) {
+  this.nameOfBar = naming;
+  this.reviewOfBar = review;
+  this.urlForBar = url;
+  this.phoneForBar = phone;
+}
+
+var closeBars = {
+	barName: [],
+	barReviewCount: [],
+	barUrl: [],
+	barPhone: []
+}
+
 //***************************************************************
 
 						// YELP API CALL
 
 //*****************************************************************
 function genYelp(city) {
-
 	var auth = {
 	  consumerKey: "9vZfVDP_dINI6KFtLfFYfA",
 	  consumerSecret: "g2QgG109oBvlf1bUx4ySSpWmlew",
@@ -65,12 +81,15 @@ function genYelp(city) {
 			(closeBars.barReviewCount).push(data.businesses[i].review_count);
 			console.log(closeBars);
 	   }
-	   for (bom=0; bom <= 4; bom++){
-	     namesBar.push(closeBars.barName[bom]);
-	     reviewsBar.push(closeBars.barReviewCount[bom]);
-	     urlsBar.push(closeBars.barUrl[bom]);
-	     phonesBar.push(closeBars.barPhone[bom]);
-	  	}
+		 for (ba = 0; ba <=9; ba++){
+			 var outputtedBarName = $(this.nameOfBar).find(closeBars.barName[ba]).toString();
+			 var outputtedBarReview = $(this.reviewOfBar).find(closeBars.barReviewCount[ba]).toString();
+			 var outputtedBarUrl = $(this.urlForBar).find(closeBars.barUrl[ba]).toString();
+			 var outputtedBarPhone = $(this.phoneForBar).find(closeBars.barPhone[ba]).toString();
+			 var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone);
+			 bars.push(newBar);
+			 console.log(bars);
+		 }
 		}
 	});
 }
@@ -79,5 +98,6 @@ $(document).ready(function(){
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
+
 	});
 });

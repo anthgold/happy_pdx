@@ -79,13 +79,13 @@ function genYelp(city) {
 			(closeBars.barUrl).push(data.businesses[i].url);
 			(closeBars.barPhone).push(data.businesses[i].phone);
 			(closeBars.barReviewCount).push(data.businesses[i].review_count);
-			console.log(closeBars);
+			//console.log(closeBars);
 	   }
 		 for (ba = 0; ba <=9; ba++){
-			 var outputtedBarName = $(this.nameOfBar).find(closeBars.barName[ba]).toString();
-			 var outputtedBarReview = $(this.reviewOfBar).find(closeBars.barReviewCount[ba]).toString();
-			 var outputtedBarUrl = $(this.urlForBar).find(closeBars.barUrl[ba]).toString();
-			 var outputtedBarPhone = $(this.phoneForBar).find(closeBars.barPhone[ba]).toString();
+			 var outputtedBarName = closeBars.barName[ba];
+			 var outputtedBarReview = closeBars.barReviewCount[ba];
+			 var outputtedBarUrl = closeBars.barUrl[ba];
+			 var outputtedBarPhone = closeBars.barPhone[ba];
 			 var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone);
 			 bars.push(newBar);
 			 console.log(bars);
@@ -98,6 +98,6 @@ $(document).ready(function(){
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
-
+		console.log(bars);
 	});
 });

@@ -63,7 +63,6 @@ function genYelp(city) {
 	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
 	console.log("paramater map", parameterMap);
 
-	var bestRestaurant = "Some random restaurant";
 	var output;
 
 	$.ajax({
@@ -90,6 +89,8 @@ function genYelp(city) {
 				bars.push(newBar);
 				//console.log(bars);
 			}
+      console.log(bars);
+      return bars
 		}
 	});
 }
@@ -98,6 +99,7 @@ $(document).ready(function(){
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
-		console.log(bars);
+    var log = function(){console.log(bars);}
+		setTimeout(log, 637);
 	});
 });

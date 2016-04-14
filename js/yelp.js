@@ -7,12 +7,13 @@
 
 //*****************************************************************
 
-function Bar(name, review, url, phone, address) {
+function Bar(name, review, url, phone, address, snippet) {
   this.name = name;
   this.review = review;
   this.url = url;
   this.phone = phone;
   this.address = address;
+  this.snippet = snippet;
 }
 
 var closeBars = {
@@ -20,7 +21,8 @@ var closeBars = {
 	barReviewCount: [],
 	barAddress:[],
 	barUrl: [],
-	barPhone: []
+	barPhone: [],
+	barSnippet:[]
 };
 
 var bars = [];
@@ -92,7 +94,7 @@ function genYelp(city) {
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
 
-		for(var i=0; i<=5; i= i+1){
+		for(var i=0; i<=4; i= i+1){
 
 				// closebar.properties ***** YELP.business properties //
 				(closeBars.barName).push(data.businesses[i].name);
@@ -100,8 +102,10 @@ function genYelp(city) {
 				(closeBars.barPhone).push(data.businesses[i].phone);
 				(closeBars.barReviewCount).push(data.businesses[i].review_count);
 				(closeBars.barAddress).push(data.businesses[i].location.display_address);
+				(close.barSnippet).push(data.businesses[i].snippet);
 				console.log(closeBars.barAddress);
 				console.log(closeBars.barAddress[0]);
+				console.log(closeBars.barSnippet);
 		  }//*************************END OF FOR LOOP***************************//
 
 			closeBars.barAddress.forEach(function(item){
@@ -109,7 +113,7 @@ function genYelp(city) {
 		  });
 			console.log(barStringAddress);
 
-	   for(var k = 0; k <=5;  k ++){
+	   for(var k = 0; k <=4;  k ++){
 
 	   	//bar constructor variables//closebar.properties//
 			var outputtedBarName = closeBars.barName[k];
@@ -117,7 +121,8 @@ function genYelp(city) {
 			var outputtedBarUrl = closeBars.barUrl[k];
 			var outputtedBarPhone = closeBars.barPhone[k];
 			var outputtedAddress = barStringAddress[k];
-			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress);
+			var outputtedSnippet = closeBars.barSnippet[k];
+			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
 			bars.push(newBar);
 			
 	   }
@@ -150,6 +155,7 @@ $(document).ready(function(){
 				$("#hours" + i).text(bars[i].url);
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
+				$("#snippet" + i).text(bars[i].snippet);
 			}
 		}
 			setTimeout(appendData, 900);

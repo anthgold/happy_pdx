@@ -137,35 +137,25 @@ function genYelp(city) {
 
 $(document).ready(function(){
 
-//*******************UI FUNCTIONS*******************//
-// function appendData(){
-// 	for(i=0; i<=5; i++){
-// 		$("#bar" + i).append(bars[i].name);
-// 		$("#hours" + i).append(bars[i].url);
-// 		$("#address" + i).append(bars[i].address);
-// 		$("#phone" + i).append(bars[i].phone);
-// 	}
-// }
-
-
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
+
+		$('.container').slideUp(900);
+		$('.result').slideDown(900);
 		
-		var appendData = function(name, phone){
+		var appendData = function(){
 			for(i=0; i<=5; i++){
-				$("#bar" + i).append(bars[i].name);
-				$("#hours" + i).append(bars[i].url);
-				$("#address" + i).append(bars[i].address);
-				$("#phone" + i).append(bars[i].phone);
+				$("#bar" + i).text(bars[i].name);
+				$("#hours" + i).text(bars[i].url);
+				$("#address" + i).text(bars[i].address);
+				$("#phone" + i).text(bars[i].phone);
 			}
 		}
-			setTimeout(appendData, 700);
+			setTimeout(appendData, 900);
 	});
-		
 				
-
-	});
+});
 
 
 

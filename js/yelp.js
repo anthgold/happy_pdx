@@ -1,25 +1,21 @@
-
-function Bar(naming, review, url, phone) {
-  this.nameOfBar = naming;
-  this.reviewOfBar = review;
-  this.urlForBar = url;
-  this.phoneForBar = phone;
+function Bar(name, review, url, phone, address) {
+  this.name = name;
+  this.review = review;
+  this.url = url;
+  this.phone = phone;
+  this.address = address;
 }
-
 var closeBars = {
 	barName: [],
 	barReviewCount: [],
+	barAddress:[],
 	barUrl: [],
 	barPhone: []
-}
-
+};
 var bars = [];
-
-//***************************************************************
-
-						// YELP API CALL
-
-//*****************************************************************
+var barStringAddress = [];
+var bars = [];
+// YELP API CALL//
 function genYelp(city) {
 	var auth = {
 	  consumerKey: "9vZfVDP_dINI6KFtLfFYfA",
@@ -30,16 +26,13 @@ function genYelp(city) {
 	    signatureMethod: "HMAC-SHA1"
 	  }
 	};
-
 	var terms = 'happy hour';
 	var radius_filter = 8000;
 	var deals_filter = true;
-
 	var accessor = {
 	  consumerSecret: auth.consumerSecret,
 	  tokenSecret: auth.accessTokenSecret
 	};
-
 	parameters = [];
 	parameters.push(['term', terms]);
 	parameters.push(['radius_filter', radius_filter]);
@@ -49,57 +42,61 @@ function genYelp(city) {
 	parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
 	parameters.push(['oauth_token', auth.accessToken]);
 	parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
-
 	var message = {
 	  'action': 'http://api.yelp.com/v2/search',
 	  'method': 'GET',
 	  'parameters': parameters
 	};
-
 	OAuth.setTimestampAndNonce(message);
 	OAuth.SignatureMethod.sign(message, accessor);
-
 	var parameterMap = OAuth.getParameterMap(message.parameters);
-	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
+	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
 	console.log("paramater map", parameterMap);
-
 	var output;
-
 	$.ajax({
 	  'url': message.action,
 	  'data': parameterMap,
 	  'cache': true,
 	  'dataType': 'jsonp',
 	  'jsonpCallback': 'cb',
-    'async': false,
+	  'async': false,
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
-			for(var i=0; i<=9; i= i+1){
-				(closeBars.barName).push(data.businesses[i].name);
-				(closeBars.barUrl).push(data.businesses[i].url);
-				(closeBars.barPhone).push(data.businesses[i].phone);
-				(closeBars.barReviewCount).push(data.businesses[i].review_count);
-		  }
-			for (ba = 0; ba <=9; ba++){
-				var outputtedBarName = closeBars.barName[ba];
-				var outputtedBarReview = closeBars.barReviewCount[ba];
-				var outputtedBarUrl = closeBars.barUrl[ba];
-				var outputtedBarPhone = closeBars.barPhone[ba];
-				var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone);
-				bars.push(newBar);
-				//console.log(bars);
-			}
-      console.log(bars);
-      return bars
-		}
-	});
+  		for(var i=0; i<=4; i= i+1){
+  			(closeBars.barName).push(data.businesses[i].name);
+  			(closeBars.barUrl).push(data.businesses[i].url);
+  			(closeBars.barPhone).push(data.businesses[i].phone);
+  			(closeBars.barReviewCount).push(data.businesses[i].review_count);
+  			(closeBars.barAddress).push(data.businesses[i].location.display_address);
+  	  }
+      closeBars.barAddress.forEach(function(item){
+  	  		barStringAddress.push(item.join(''));
+  	  });
+      for(var k = 0; k <=5;  k ++){
+      	var outputtedBarName = closeBars.barName[k];
+      	var outputtedBarReview = closeBars.barReviewCount[k];
+      	var outputtedBarUrl = closeBars.barUrl[k];
+      	var outputtedBarPhone = closeBars.barPhone[k];
+      	var outputtedAddress = barStringAddress[k];
+      	var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress);
+      	bars.push(newBar);
+      }
+    }
+  });
 }
-//************************************************end of yelp API call*****************
+//ui//
 $(document).ready(function(){
+  var appendData = function(name, phone){
+    for(i=0; i<=5; i++){
+      $("#bar" + i).append(bars[i].name);
+      $("#hours" + i).append(bars[i].url);
+      $("#address" + i).append(bars[i].address);
+      $("#phone" + i).append(bars[i].phone);
+    }
+  }
 	$('#click').click(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
-    var log = function(){console.log(bars);}
-		setTimeout(log, 637);
+		setTimeout(appendData, 1000);
 	});
 });

@@ -1,6 +1,3 @@
-
-
-
 //***************************************************************
 
 						// YELP API CALL
@@ -15,7 +12,6 @@ function Bar(name, review, url, phone, address, snippet) {
   this.address = address;
   this.snippet = snippet;
 }
-
 var closeBars = {
 	barName: [],
 	barReviewCount: [],
@@ -24,13 +20,11 @@ var closeBars = {
 	barPhone: [],
 	barSnippet:[]
 };
-
 var bars = [];
 var barStringAddress = [];
-
+var bars = [];
+// YELP API CALL//
 function genYelp(city) {
-
-
 	var auth = {
 	  consumerKey: "9vZfVDP_dINI6KFtLfFYfA",
 	  consumerSecret: "g2QgG109oBvlf1bUx4ySSpWmlew",
@@ -39,23 +33,15 @@ function genYelp(city) {
 	  serviceProvider: {
 	    signatureMethod: "HMAC-SHA1"
 	  }
-		
 	};
-
-	
 	var terms = 'happy hour';
 	var radius_filter = 8000;
 	var deals_filter = true;
-
-
-
 	var accessor = {
 	  consumerSecret: auth.consumerSecret,
 	  tokenSecret: auth.accessTokenSecret
 	};
-
 	parameters = [];
-	
 	parameters.push(['term', terms]);
 	parameters.push(['radius_filter', radius_filter]);
 	parameters.push(['location', city]);
@@ -64,26 +50,17 @@ function genYelp(city) {
 	parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
 	parameters.push(['oauth_token', auth.accessToken]);
 	parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
-
 	var message = {
 	  'action': 'http://api.yelp.com/v2/search',
 	  'method': 'GET',
 	  'parameters': parameters
 	};
-
 	OAuth.setTimestampAndNonce(message);
 	OAuth.SignatureMethod.sign(message, accessor);
-
 	var parameterMap = OAuth.getParameterMap(message.parameters);
 	parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
 	console.log("paramater map", parameterMap);
 	var output;
-
-
-
-
-	console.log("im about to enter the AJAX call");
-
 	$.ajax({
 	  'url': message.action,
 	  'data': parameterMap,
@@ -93,6 +70,7 @@ function genYelp(city) {
 	  'async': false,
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
+<<<<<<< HEAD
 
 		for(var i=0; i<=4; i= i+1){
 
@@ -125,9 +103,7 @@ function genYelp(city) {
 			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
 			bars.push(newBar);
 			
-	   }
-
-	   	
+	   }	   	
 
 	  }//*****************************END OF SUCCESS CALLBACK*****************//
 
@@ -162,9 +138,3 @@ $(document).ready(function(){
 	});
 				
 });
-
-
-
-
-
-

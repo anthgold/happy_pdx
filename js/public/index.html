@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Your description goes here">
+		<meta name="keywords" content="one, two, three">
+		<title>Happy PdX</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../../css/style.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+		<script type="text/javascript" src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaMGPMM2MLt3v7twIapog8PLckj8t2U8I" async defer></script>
+		<script src="../googleMaps.js"></script>
+		<script src="../yelp.js"></script>
+		<script type="text/javascript" src="../ajax.js"></script>
+	</head>
+	<body>
 
+<<<<<<< HEAD
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="Your description goes here">
@@ -17,12 +35,47 @@
 	<script src="../yelp.js"></script>
 	<script src="../YelpDatabase.js"></script>
 	<script type="text/javascript" src="../ajax.js"></script>
+=======
+		<section class="yelp">
+			<h1>This is the Yelp div </h1>
+			<label>Enter a city bellow to see most popular bars.</label>
+			<input id="yelp-city"></input>
+			<button id="click">Generate Yelp Results</button>
+		</section>
+>>>>>>> 8cdf9ba8b6aba3ce6e09ae4b82fbdcd08270c2dd
 
+		<div class="row content">
+	        <div class="bars">
+	          <h2 id="bar0"></h2>
+	          <p></p>
+	          <ul>
+	            <li id="hours"></li>
+	            <li id="address0"></li>
+	            <li id="phone0"></li>
+	          </ul>
+	        </div>
 
-</head>
+	        <div class="bars">
+	          <h2 id="bar1"></h2>
+	          <p></p>
+	          <ul>
+	            <li id="hours"></li>
+	            <li id="address1"></li>
+	            <li id="phone1"></li>
+	          </ul>
+	        </div>
 
-<body>
+	        <div class="bars">
+	          <h2 id="bar2"></h2>
+	          <p></p>
+	          <ul>
+	            <li id="hours"></li>
+	            <a href="#"><li id="address2"></li></a>
+	            <li id="phone2"></li>
+	          </ul>
+	        </div>
 
+<<<<<<< HEAD
 	<section class="yelp">
 		<h1>This is the Yelp div </h1>
 		<label>Enter a city bellow to see most popular bars.</label>
@@ -39,10 +92,20 @@
 	            <li id="hours"></li>
 	            <li id="address0"></li>
 	            <li id="phone0"></li>
+=======
+	        <div class="bars">
+	          <h2 id="bar3"></h2>
+	          <p></p>
+	          <ul>
+	            <li id="hours"></li>
+	            <li id="address3"></li>
+	            <li id="phone3"></li>
+>>>>>>> 8cdf9ba8b6aba3ce6e09ae4b82fbdcd08270c2dd
 	          </ul>
 	        </div>
 
 	        <div class="bars">
+<<<<<<< HEAD
 	          <h2 id="bar1"></h2>
 	          <p></p>
 	          <ul>
@@ -94,5 +157,25 @@
 
 
 </body>
+=======
+	          <h2 id="bar4"></h2>
+	          <p></p>
+	          <ul>
+	            <li id="hours"></li>
+	            <li id="address4"></li>
+	            <li id="phone4"></li>
+	          </ul>
+	        </div>
+		</div>
 
+		<button id="map-button">Show Map</button>
+>>>>>>> 8cdf9ba8b6aba3ce6e09ae4b82fbdcd08270c2dd
+
+		<div>
+			<h1>This is the Twitter div </h1>
+			<button id="btn-submit" onclick="runAjax()">click ajax</button>
+			<p id="content-data"></p>
+		</div>
+		
+	</body>
 </html>

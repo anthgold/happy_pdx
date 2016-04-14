@@ -1,6 +1,4 @@
 
-var bars = [];
-
 function Bar(naming, review, url, phone) {
   this.nameOfBar = naming;
   this.reviewOfBar = review;
@@ -14,6 +12,8 @@ var closeBars = {
 	barUrl: [],
 	barPhone: []
 }
+
+var bars = [];
 
 //***************************************************************
 
@@ -72,24 +72,24 @@ function genYelp(city) {
 	  'cache': true,
 	  'dataType': 'jsonp',
 	  'jsonpCallback': 'cb',
+    'async': false,
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
-		for(var i=0; i<=9; i= i+1){
-			(closeBars.barName).push(data.businesses[i].name);
-			(closeBars.barUrl).push(data.businesses[i].url);
-			(closeBars.barPhone).push(data.businesses[i].phone);
-			(closeBars.barReviewCount).push(data.businesses[i].review_count);
-			//console.log(closeBars);
-	   }
-		 for (ba = 0; ba <=9; ba++){
-			 var outputtedBarName = closeBars.barName[ba];
-			 var outputtedBarReview = closeBars.barReviewCount[ba];
-			 var outputtedBarUrl = closeBars.barUrl[ba];
-			 var outputtedBarPhone = closeBars.barPhone[ba];
-			 var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone);
-			 bars.push(newBar);
-			 console.log(bars);
-		 }
+			for(var i=0; i<=9; i= i+1){
+				(closeBars.barName).push(data.businesses[i].name);
+				(closeBars.barUrl).push(data.businesses[i].url);
+				(closeBars.barPhone).push(data.businesses[i].phone);
+				(closeBars.barReviewCount).push(data.businesses[i].review_count);
+		  }
+			for (ba = 0; ba <=9; ba++){
+				var outputtedBarName = closeBars.barName[ba];
+				var outputtedBarReview = closeBars.barReviewCount[ba];
+				var outputtedBarUrl = closeBars.barUrl[ba];
+				var outputtedBarPhone = closeBars.barPhone[ba];
+				var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone);
+				bars.push(newBar);
+				//console.log(bars);
+			}
 		}
 	});
 }

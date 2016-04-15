@@ -8,15 +8,15 @@
 
 This is the capstone team project from Epicodus's Introduction to Coding. It creates a website where the user inputs a city and the site returns the most popular cocktail lounges along with a map of their location, and contact information.
 
-Page is at http://monichre.github.io/happy_pdx
+Page is at http://anthgold.github.io/happy_pdx/js/public
 
 ## Known Bugs
 
-_{Are there issues that have not yet been resolved that you want to let users know you know?  Outline any issues that would impact use of your application.  Share any workarounds that are in place. }_
+_ _
 
 ## Support and contact details
 
-Questions? Concerns? Ideas? Email: TBD
+Questions? Concerns? Ideas? Email: anthgold@gmaildotcom
 
 ## Technologies Used
 

@@ -22,7 +22,7 @@ function Bar(name, review, url, phone, address, snippet, coordinates) {
   this.address = address;
   this.snippet = snippet;
   this.coordinates = coordinates;
-  
+
 }
 
 var closeBars = {
@@ -39,14 +39,7 @@ function pageBar(lat, lng){
 	this.lat = lat;
 	this.lng = lng;
 }
-// barsArray[i].lat = bars[i].coordinates.latitude;
-// barsArray[i].lng = bars[i].coordinates.longitude;
-// var bar1 = new pageBar();
-// var bar2 = new pageBar();
-// var bar3 = new pageBar();
-// var bar4 = new pageBar();
-// var bar5 = new pageBar();
-// var barsArray = [bar1, bar2, bar3, bar4, bar5];
+
 
 var bars = [];
 var barStringAddress = [];
@@ -109,13 +102,13 @@ function genYelp(city) {
 				(closeBars.barAddress).push(data.businesses[i].location.display_address);
 				(closeBars.barSnippet).push(data.businesses[i].snippet_text);
 				(closeBars.barCoordinates).push(data.businesses[i].location.coordinate);
-				
-				
+
+
 				console.log(closeBars.barCoordinates);
 				console.log(closeBars.barAddress);
 				console.log(closeBars.barAddress[0]);
 				console.log(closeBars.barSnippet);
-				
+
 		  }//*************************END OF FOR LOOP***************************//
 
 			closeBars.barAddress.forEach(function(item){
@@ -135,25 +128,25 @@ function genYelp(city) {
 			// var outputtedCoordinates = closeBars.barCoordinates[k];
 			// console.log(outputtedCoordinates);
 			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
-			
-			
+
+
 			bars.push(newBar);
-			
-	   }	   	
+
+	   }
 
 	  }//*****************************END OF SUCCESS CALLBACK*****************//
 
 	}); //******************** end of AJAX request*******************
 
-	
+
 
 
 	}//************************************************END OF YELP API FUNCTION *****************//
 
-	
+
 
 $(document).ready(function(){
-	
+
 
 	$('form').submit(function(e){
 		e.preventDefault();
@@ -162,7 +155,7 @@ $(document).ready(function(){
 		var near = $("#yelp-city").val();
 		genYelp(near);
 
-		
+
 		var appendData = function(){
 			for(i=0; i<=4; i++){
 				$("#bar" + i).append(bars[i].name);
@@ -170,14 +163,12 @@ $(document).ready(function(){
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
 				$(".snippet" + i).text(bars[i].snippet);
-				
-				
-		} 
+
+
+		}
 			setTimeout(appendData, 800);
 		}
-			
+
 	});
-			
+
 });
-
-

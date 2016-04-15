@@ -3,20 +3,31 @@
 						// YELP API CALL
 
 //*****************************************************************
-function Bar(name, review, url, phone, address) {
+function Bar(name, review, url, phone, address, snippet, coordinates) {
   this.name = name;
   this.review = review;
   this.url = url;
   this.phone = phone;
   this.address = address;
+  this.snippet = snippet;
+  this.coordinates = coordinates;
+
 }
+
 var closeBars = {
 	barName: [],
 	barReviewCount: [],
 	barAddress:[],
 	barUrl: [],
-	barPhone: []
+	barPhone: [],
+	barSnippet:[],
+	barCoordinates: []
 };
+
+function pageBar(lat, lng){
+	this.lat = lat;
+	this.lng = lng;
+}
 
 var bars = [];
 var barStringAddress = [];
@@ -31,9 +42,7 @@ function genYelp(city) {
 	  serviceProvider: {
 	    signatureMethod: "HMAC-SHA1"
 	  }
-
 	};
-
 
 	var terms = 'happy hour';
 	var radius_filter = 8000;
@@ -45,7 +54,6 @@ function genYelp(city) {
 	};
 
 	parameters = [];
-
 
 	parameters.push(['term', terms]);
 	parameters.push(['radius_filter', radius_filter]);
@@ -80,16 +88,16 @@ function genYelp(city) {
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
 
-		for(var i=0; i<=5; i= i+1){
-
+		for(var i=0; i<=4; i= i+1){
 				// closebar.properties ***** YELP.business properties //
 				(closeBars.barName).push(data.businesses[i].name);
 				(closeBars.barUrl).push(data.businesses[i].url);
 				(closeBars.barPhone).push(data.businesses[i].phone);
 				(closeBars.barReviewCount).push(data.businesses[i].review_count);
 				(closeBars.barAddress).push(data.businesses[i].location.display_address);
-				console.log(closeBars.barAddress);
-				console.log(closeBars.barAddress[0]);
+				(closeBars.barSnippet).push(data.businesses[i].snippet_text);
+				(closeBars.barCoordinates).push(data.businesses[i].location.coordinate);
+
 		  }//*************************END OF FOR LOOP***************************//
 
 			closeBars.barAddress.forEach(function(item){
@@ -97,15 +105,17 @@ function genYelp(city) {
 		  });
 			console.log(barStringAddress);
 
-	   for(var k = 0; k <=5;  k ++){
-
+	   for(var k = 0; k <=4;  k ++){
 	   	//bar constructor variables//closebar.properties//
 			var outputtedBarName = closeBars.barName[k];
 			var outputtedBarReview = closeBars.barReviewCount[k];
 			var outputtedBarUrl = closeBars.barUrl[k];
 			var outputtedBarPhone = closeBars.barPhone[k];
 			var outputtedAddress = barStringAddress[k];
-			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress);
+			var outputtedSnippet = closeBars.barSnippet[k];
+			// var outputtedCoordinates = closeBars.barCoordinates[k];
+			// console.log(outputtedCoordinates);
+			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
 			bars.push(newBar);
 
 	   }
@@ -114,7 +124,7 @@ function genYelp(city) {
 
 	}); //******************** end of AJAX request*******************
 
-	}//************************************************END OF YELP API FUNCTION *****************//
+}//************************************************END OF YELP API FUNCTION *****************//
 
 $(document).ready(function(){
 
@@ -126,32 +136,27 @@ $(document).ready(function(){
   else sticky.removeClass('fixed');
 });
 
-	$('form').submit(function(e){
-		e.preventDefault();
+	$('form').submit(function(event){
+		event.preventDefault();
 		var near = $("#yelp-city").val();
 		genYelp(near);
-
 		$(".container").slideUp(500);
-		// $('body').addClass('body2').;
-    // $('.results').slideDown(900);
     $('.bars').fadeIn(500);
     $('.results').slideDown(1000);
     $('ul').hide();
 
-
-		var appendData = function(){
-			for(i=0; i<=5; i++){
+    var appendData = function(){
+			for(i=0; i<=4; i++){
 				$("#bar" + i).append(bars[i].name);
+				$("#hours" + i).text(bars[i].url);
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
-			}
+				$(".snippet" + i).text(bars[i].snippet);
 		}
-			setTimeout(appendData, 1000);
+			setTimeout(appendData, 900);
+		}
 	});
-
   $('h2').click(function(event){
   		$("ul").slideToggle();
   });
-
-
 });

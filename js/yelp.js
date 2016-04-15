@@ -3,23 +3,51 @@
 						// YELP API CALL
 
 //*****************************************************************
+function init(lat, lng){
+	var mapOptions = {
+	center:new google.maps.LatLng(lat, lng),
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+	zoom:13
+	};
+	var venueMap;
+	venueMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+	console.log("this should be working");
+}
 
-function Bar(name, review, url, phone, address, snippet) {
+function Bar(name, review, url, phone, address, snippet, coordinates) {
   this.name = name;
   this.review = review;
   this.url = url;
   this.phone = phone;
   this.address = address;
   this.snippet = snippet;
+  this.coordinates = coordinates;
+  
 }
+
 var closeBars = {
 	barName: [],
 	barReviewCount: [],
 	barAddress:[],
 	barUrl: [],
 	barPhone: [],
-	barSnippet:[]
+	barSnippet:[],
+	barCoordinates: []
 };
+
+function pageBar(lat, lng){
+	this.lat = lat;
+	this.lng = lng;
+}
+// barsArray[i].lat = bars[i].coordinates.latitude;
+// barsArray[i].lng = bars[i].coordinates.longitude;
+// var bar1 = new pageBar();
+// var bar2 = new pageBar();
+// var bar3 = new pageBar();
+// var bar4 = new pageBar();
+// var bar5 = new pageBar();
+// var barsArray = [bar1, bar2, bar3, bar4, bar5];
+
 var bars = [];
 var barStringAddress = [];
 var bars = [];
@@ -70,7 +98,6 @@ function genYelp(city) {
 	  'async': false,
 	  'success': function(data, textStats, XMLHttpRequest) {
 	    output = data;
-<<<<<<< HEAD
 
 		for(var i=0; i<=4; i= i+1){
 
@@ -80,10 +107,15 @@ function genYelp(city) {
 				(closeBars.barPhone).push(data.businesses[i].phone);
 				(closeBars.barReviewCount).push(data.businesses[i].review_count);
 				(closeBars.barAddress).push(data.businesses[i].location.display_address);
-				(close.barSnippet).push(data.businesses[i].snippet);
+				(closeBars.barSnippet).push(data.businesses[i].snippet_text);
+				(closeBars.barCoordinates).push(data.businesses[i].location.coordinate);
+				
+				
+				console.log(closeBars.barCoordinates);
 				console.log(closeBars.barAddress);
 				console.log(closeBars.barAddress[0]);
 				console.log(closeBars.barSnippet);
+				
 		  }//*************************END OF FOR LOOP***************************//
 
 			closeBars.barAddress.forEach(function(item){
@@ -100,7 +132,11 @@ function genYelp(city) {
 			var outputtedBarPhone = closeBars.barPhone[k];
 			var outputtedAddress = barStringAddress[k];
 			var outputtedSnippet = closeBars.barSnippet[k];
+			// var outputtedCoordinates = closeBars.barCoordinates[k];
+			// console.log(outputtedCoordinates);
 			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
+			
+			
 			bars.push(newBar);
 			
 	   }	   	
@@ -117,24 +153,31 @@ function genYelp(city) {
 	
 
 $(document).ready(function(){
+	
 
-	$('#click').click(function(){
+	$('form').submit(function(e){
+		e.preventDefault();
+		$('.container').hide();
+		$('.results').show();
 		var near = $("#yelp-city").val();
 		genYelp(near);
 
-		$('.container').slideUp(900);
-		$('.result').slideDown(900);
 		
 		var appendData = function(){
-			for(i=0; i<=5; i++){
-				$("#bar" + i).text(bars[i].name);
+			for(i=0; i<=4; i++){
+				$("#bar" + i).append(bars[i].name);
 				$("#hours" + i).text(bars[i].url);
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
-				$("#snippet" + i).text(bars[i].snippet);
-			}
-		}
-			setTimeout(appendData, 900);
-	});
+				$(".snippet" + i).text(bars[i].snippet);
 				
+				
+		} 
+			setTimeout(appendData, 800);
+		}
+			
+	});
+			
 });
+
+

@@ -2,7 +2,7 @@
 
 #### _A website where a user inputs a city and gets directed to its top nightspots, version 1.0, current as of 4.15.2016._
 
-#### By _** Arlen Burton, Liam Ellis,  Anthony Gold, and Erin Goncer **_
+#### By _** Arlen Burton, Liam Ellis, Erin Goncer, and  Anthony Gold **_
 
 ## Description
 
@@ -16,7 +16,7 @@ _{Are there issues that have not yet been resolved that you want to let users kn
 
 ## Support and contact details
 
-Questions? Concerns? Ideas? Email: liamhellis@gmail.com
+Questions? Concerns? Ideas? Email: TBD
 
 ## Technologies Used
 

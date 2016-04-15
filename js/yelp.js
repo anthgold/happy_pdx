@@ -11,7 +11,6 @@ function Bar(name, review, url, phone, address, snippet, coordinates) {
   this.address = address;
   this.snippet = snippet;
   this.coordinates = coordinates;
-
 }
 
 var closeBars = {
@@ -152,9 +151,9 @@ $(document).ready(function(){
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
 				$(".snippet" + i).text(bars[i].snippet);
+		    }
 		}
-			setTimeout(appendData, 900);
-		}
+      setTimeout(appendData, 1000);
 	});
   $('h2').click(function(event){
   		$("ul").slideToggle();

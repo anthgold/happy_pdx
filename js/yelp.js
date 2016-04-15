@@ -3,25 +3,25 @@
 						// YELP API CALL
 
 //*****************************************************************
-function init(lat, lng){
-	var mapOptions = {
-	center:new google.maps.LatLng(lat, lng),
-	mapTypeId: google.maps.MapTypeId.ROADMAP,
-	zoom:13
-	};
-	var venueMap;
-	venueMap = new google.maps.Map(document.getElementById('map'), mapOptions);
-	console.log("this should be working");
-}
+// function init(lat, lng){
+// 	var mapOptions = {
+// 	center:new google.maps.LatLng(lat, lng),
+// 	mapTypeId: google.maps.MapTypeId.ROADMAP,
+// 	zoom:13
+// 	};
+// 	var venueMap;
+// 	venueMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+// 	console.log("this should be working");
+// }
 
-function Bar(name, review, url, phone, address, snippet, coordinates) {
+function Bar(name, review, url, phone, address, snippet) {
   this.name = name;
   this.review = review;
   this.url = url;
   this.phone = phone;
   this.address = address;
   this.snippet = snippet;
-  this.coordinates = coordinates;
+  // this.coordinates = coordinates;
   
 }
 
@@ -35,10 +35,10 @@ var closeBars = {
 	barCoordinates: []
 };
 
-function pageBar(lat, lng){
-	this.lat = lat;
-	this.lng = lng;
-}
+// function pageBar(lat, lng){
+// 	this.lat = lat;
+// 	this.lng = lng;
+// }
 // barsArray[i].lat = bars[i].coordinates.latitude;
 // barsArray[i].lng = bars[i].coordinates.longitude;
 // var bar1 = new pageBar();
@@ -50,7 +50,7 @@ function pageBar(lat, lng){
 
 var bars = [];
 var barStringAddress = [];
-var bars = [];
+
 // YELP API CALL//
 function genYelp(city) {
 	var auth = {
@@ -108,10 +108,10 @@ function genYelp(city) {
 				(closeBars.barReviewCount).push(data.businesses[i].review_count);
 				(closeBars.barAddress).push(data.businesses[i].location.display_address);
 				(closeBars.barSnippet).push(data.businesses[i].snippet_text);
-				(closeBars.barCoordinates).push(data.businesses[i].location.coordinate);
+				// (closeBars.barCoordinates).push(data.businesses[i].location.coordinate);
 				
 				
-				console.log(closeBars.barCoordinates);
+				// console.log(closeBars.barCoordinates);
 				console.log(closeBars.barAddress);
 				console.log(closeBars.barAddress[0]);
 				console.log(closeBars.barSnippet);
@@ -135,8 +135,7 @@ function genYelp(city) {
 			// var outputtedCoordinates = closeBars.barCoordinates[k];
 			// console.log(outputtedCoordinates);
 			var newBar = new Bar(outputtedBarName, outputtedBarReview, outputtedBarUrl, outputtedBarPhone, outputtedAddress, outputtedSnippet);
-			
-			
+			// $('.bars').append("<li> HOLY FUCKING SHIT </li>");			
 			bars.push(newBar);
 			
 	   }	   	
@@ -148,7 +147,7 @@ function genYelp(city) {
 	
 
 
-	}//************************************************END OF YELP API FUNCTION *****************//
+}//************************************************END OF YELP API FUNCTION *****************//
 
 	
 
@@ -161,21 +160,19 @@ $(document).ready(function(){
 		$('.results').show();
 		var near = $("#yelp-city").val();
 		genYelp(near);
-
+		console.log("i should be through the Yelp function");
 		
 		var appendData = function(){
 			for(i=0; i<=4; i++){
-				$("#bar" + i).append(bars[i].name);
-				$("#hours" + i).text(bars[i].url);
+				$("#bar" + i).text(bars[i].name);
 				$("#address" + i).text(bars[i].address);
 				$("#phone" + i).text(bars[i].phone);
 				$(".snippet" + i).text(bars[i].snippet);
-				
-				
+				console.log("I should have appended");	
 		} 
-			setTimeout(appendData, 800);
-		}
 			
+		};	setTimeout(appendData, 1000);
+			console.log("after the time out ordeal");
 	});
 			
 });

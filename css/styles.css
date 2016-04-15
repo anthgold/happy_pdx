@@ -294,3 +294,8 @@ html {
   font-family: codebold;
   font-size: 250%;
 }
+
+#legal{
+  height: 100px;
+  width: auto;
+}

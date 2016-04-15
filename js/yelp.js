@@ -131,7 +131,7 @@ $(document).ready(function(){
   var sticky = $('.sticky'),
       scroll = $(window).scrollTop();
 
-  if (scroll >= 150) sticky.addClass('fixed');
+  if (scroll >= 320) sticky.addClass('fixed');
   else sticky.removeClass('fixed');
 });
 
@@ -153,7 +153,7 @@ $(document).ready(function(){
 				$(".snippet" + i).text(bars[i].snippet);
 		    }
 		}
-      setTimeout(appendData, 1000);
+      setTimeout(appendData, 1200);
 	});
   $('h2').click(function(event){
   		$("ul").slideToggle();
